@@ -34,6 +34,40 @@ To try the application on your local machine:
 
 http://127.0.0.1:8000/
 
+## Build and Deploy in ACA
+Build the image locally
+```bash
+docker build --tag fastapi-demo
+```
+
+Run the image locally in a Docker container.
+```bash
+docker run --detach --publish 3100:3100 fastapi-demo
+```
+
+Open the http://localhost:3100 URL in your browser to see the web app running locally.
+
+Deploy web app to Azure
+
+To deploy the Docker image to Azure Container Apps, use the az containerapp up command. (The following commands are shown for the Bash shell. Change the continuation character (\) as appropriate for other shells.)
+
+    Flask
+    FastAPI
+
+Azure CLI
+```bash
+az containerapp up \
+  --resource-group web-fastapi-aca-rg --name web-aca-app \ 
+  --ingress external --target-port 3100 --source .
+```
+
+When deployment completes, you have a resource group with the following resources inside of it:
+
+    An Azure Container Registry
+    A Container Apps Environment
+    A Container App running the web app image
+    A Log Analytics workspace
+
 ## Next Steps
 
 To learn more about FastAPI, see [FastAPI](https://fastapi.tiangolo.com/).
